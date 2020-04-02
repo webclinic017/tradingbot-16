@@ -6,8 +6,13 @@ We choose 5 stocks to use with prices.py
 from bs4 import BeautifulSoup
 import string
 import requests
+import time
+import urllib.request, json 
+
+IEX_API_KEY = "pk_ddf96702d3cd4629b22432fffed5c330"
 
 
+""" Scrapes list of all symbols from url """
 def get_all_stocks():
     # Get a current list of all the stock symbols for the NYSE
     # Create a list of every letter in the alphabet
@@ -36,4 +41,26 @@ def get_all_stocks():
         symbols_clean.append((each.split('-')[0]))
     
     return symbols_clean
+
+
+""" Gets list of top 10 gainers from API json response """
+def get_top_gainers():
+    symbols = []
+    with urllib.request.urlopen("https://cloud.iexapis.com/stable/stock/market/list/gainers?token=" + IEX_API_KEY) as url:
+        data = json.loads(url.read().decode())
+        for obj in data:
+            symbol = obj['symbol']
+            symbols.append(symbol)
+    return symbols
+
+
+""" Gets list of top 10 losers from API json response """
+def get_top_losers():
+    symbols = []
+    with urllib.request.urlopen("https://cloud.iexapis.com/stable/stock/market/list/losers?token=" + IEX_API_KEY) as url:
+        data = json.loads(url.read().decode())
+        for obj in data:
+            symbol = obj['symbol']
+            symbols.append(symbol)
+    return symbols
 
