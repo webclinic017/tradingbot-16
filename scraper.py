@@ -6,7 +6,6 @@ We choose 5 stocks to use with prices.py
 from bs4 import BeautifulSoup
 import string
 import requests
-import time
 import urllib.request, json 
 
 IEX_API_KEY = "pk_ddf96702d3cd4629b22432fffed5c330"
