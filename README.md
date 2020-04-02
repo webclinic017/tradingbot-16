@@ -1,1 +1,3 @@
 # tradingbot
+
+`python server.py`
