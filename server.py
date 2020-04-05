@@ -5,6 +5,21 @@ import time
 from datetime import datetime
 import numpy as np
 import talib
+
+""" Overview:
+
+Server.py should include:
+-Configuration options (paper, backtrading, live, etc.)
+-Strategy to use (a Strategy object)
+-Server setup for the host we decide to use
+-A log object
+
+The only tasks that need to be continuously run off this file are:
+-strategy.run or strategy.update and any server methods
+
+log(event) is called whenever needed by any object in the global scope.
+"""
+
 assetsToTrade = scraper.get_top_gainers()[0:5]
 
 
