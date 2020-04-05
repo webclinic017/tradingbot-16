@@ -1,4 +1,4 @@
-from Trader import Trader
+from trading_clients.Trader import Trader
 
 class AlpacaTrader(Trader):
     def get_account(self):
