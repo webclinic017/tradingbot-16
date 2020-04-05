@@ -5,9 +5,18 @@ Strategy files are the only files with access to indicators, prices, stock lists
 It should not have any direct interactions with the brokerage api. Interactions are made via trading.py
 """
 
-def run():
-    return
+from abc import ABC, abstractmethod
 
-def update():
-    return
+class Strategy(ABC):
+    def __init__(self, data):
+        self.data = data
+        super().__init__()
+    
+    @abstractmethod
+    def run(self):
+        pass
+    
+    @abstractmethod
+    def update(self):
+        pass
 
