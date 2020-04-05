@@ -56,14 +56,14 @@ class SMAStrategy(Strategy):
             # Calculates the trading signals
             if SMA20 > SMA50:
                 try:
-                    openPosition = trader.get_position(symbol)
-                    cashBalance = trader.get_account().cash  
-                    returned = trader.submit_order(symbol,100,"buy","market","gtc") # Market order to open position
+                    openPosition = self.trader.get_position(symbol)
+                    cashBalance = self.trader.get_account().cash  
+                    returned = self.trader.submit_order(symbol,100,"buy","market","gtc") # Market order to open position
                     print("buying")
                 # Opens new position if one does not exist
                 except:
-                    cashBalance = trader.get_account().cash  
-                    returned = trader.submit_order(symbol,100,"buy","market","gtc") # Market order to open position
+                    cashBalance = self.trader.get_account().cash  
+                    returned = self.trader.submit_order(symbol,100,"buy","market","gtc") # Market order to open position
                     print("buying")
                 
             else:
@@ -71,7 +71,7 @@ class SMAStrategy(Strategy):
                 #openPosition = api.get_position(symbol)
                 #returned = api.submit_order(symbol,10,"sell","market","gtc") 
                 try:
-                    returned = trader.submit_order(symbol,10,"sell","market","gtc") # Market order to fully close position
+                    returned = self.trader.submit_order(symbol,10,"sell","market","gtc") # Market order to fully close position
                     print("selling")
                 except:
                     print("error")
