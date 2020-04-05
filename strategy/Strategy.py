@@ -8,8 +8,9 @@ It should not have any direct interactions with the brokerage api. Interactions 
 from abc import ABC, abstractmethod
 
 class Strategy(ABC):
-    def __init__(self, data):
+    def __init__(self, data, trader):
         self.data = data
+        self.trader = trader
         super().__init__()
     
     @abstractmethod
@@ -17,6 +18,6 @@ class Strategy(ABC):
         pass
     
     @abstractmethod
-    def update(self):
+    def update(self, new_data):
         pass
 
