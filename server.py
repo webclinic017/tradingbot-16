@@ -16,7 +16,7 @@ import time
 
 trader = at.AlpacaTrader(tradeapi.REST())
 
-strats = [smas.Strategy(None, trader)]
+strats = [smas.SMAStrategy(None, trader)]
 
 for strat in strats:
     strat.run()

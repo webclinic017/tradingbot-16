@@ -7,12 +7,12 @@ import scraper
 class SMAStrategy(Strategy):
     def run(self):
         assetsToTrade = scraper.get_top_gainers()[0:5]
-        barTimeframe = "5Min"
+        self.barTimeFrame = "5Min"
         assetListLen = len(assetsToTrade)
 
         self.data = {
             'assetsToTrade': assetsToTrade,
-            'barTimeFrame': barTimeFrame,
+            'barTimeFrame': self.barTimeFrame,
             'assetListLen': assetListLen
         }
         
@@ -23,7 +23,7 @@ class SMAStrategy(Strategy):
         while iteratorPos < self.data['assetListLen']:
             symbol = self.data['assetsToTrade'][iteratorPos]
             
-            returned_data = self.trader.get_barset(symbol,barTimeframe,limit=100)
+            returned_data = self.trader.get_barset(symbol,self.barTimeFrame,limit=100)
             
             timeList = []
             openList = []

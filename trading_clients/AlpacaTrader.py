@@ -11,5 +11,5 @@ class AlpacaTrader(Trader):
         limit_price=None, stop_price=None, client_order_id=None, order_class=None, take_profit=None, stop_loss=None):
         return self.api.submit_order(symbol, qty, side, type, time_in_force)
     
-    def get_barset(symbol,barTimeframe,limit=100):
+    def get_barset(self, symbol,barTimeframe,limit=100):
         return self.api.get_barset(symbol,barTimeframe,limit=100)
