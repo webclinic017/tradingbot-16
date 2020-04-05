@@ -16,12 +16,14 @@ import time
 
 trader = at.AlpacaTrader(tradeapi.REST())
 
-strat = smas.Strategy(None, trader)
+strats = [smas.Strategy(None, trader)]
 
-strat.run()
+for strat in strats:
+    strat.run()
 
 for i in range(0, 100000):
-    strat.update()
+    for strat in strats:
+        strat.update()
     time.sleep(60)
 
 
