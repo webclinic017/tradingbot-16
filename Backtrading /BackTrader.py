@@ -1,3 +1,4 @@
+
 import datetime  # For datetime objects
 import os.path  # To manage paths
 import sys  # To find out the script name (in argv[0])
@@ -113,9 +114,9 @@ if __name__ == '__main__':
     data = bt.feeds.YahooFinanceCSVData(
         dataname=datapath,
         # Do not pass values before this date
-        fromdate=datetime.datetime(2018, 12, 1),
+        fromdate=datetime.datetime(2017, 1, 1),
         # Do not pass values before this date
-        todate=datetime.datetime(2018, 12, 31),
+        todate=datetime.datetime(2017, 12, 31),
         # Do not pass values after this date
         reverse=False)
 
@@ -129,7 +130,7 @@ if __name__ == '__main__':
     cerebro.addsizer(bt.sizers.FixedSize, stake=10)
 
     # Set the commission - 0.1% ... divide by 100 to remove the %
-    cerebro.broker.setcommission(commission=0.001)
+    cerebro.broker.setcommission(commission=0.000)
 
     # Print out the starting conditions
     print('Starting Portfolio Value: %.2f' % cerebro.broker.getvalue())
@@ -139,3 +140,4 @@ if __name__ == '__main__':
 
     # Print out the final result
     print('Final Portfolio Value: %.2f' % cerebro.broker.getvalue())
+    cerebro.plot()
