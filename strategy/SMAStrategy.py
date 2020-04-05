@@ -1,10 +1,21 @@
 from strategy.Strategy import Strategy
 import talib
 import numpy as np
+import scraper
 
 
 class SMAStrategy(Strategy):
     def run(self):
+        assetsToTrade = scraper.get_top_gainers()[0:5]
+        barTimeframe = "5Min"
+        assetListLen = len(assetsToTrade)
+
+        self.data = {
+            'assetsToTrade': assetsToTrade,
+            'barTimeFrame': barTimeFrame,
+            'assetListLen': assetListLen
+        }
+        
         return
     
     def update(self, new_data):
