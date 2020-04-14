@@ -11,7 +11,7 @@ or just type in `cat >> ~/.bash_profile` into command line, enter, and copy/past
 
 check https://alpaca.markets/docs/api-documentation/api-v2/ for alpaca documentation
 
-# Dependencies
+## Dependencies
 - alpaca_trade_api
 - bs4
 - TA-lib 
