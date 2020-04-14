@@ -10,4 +10,8 @@ export APCA_API_SECRET_KEY="R30t8uWklbVBc1i8PM4rASnnBwVqsmqnxAG7mYDS"` to  ~/.ba
 or just type in `cat >> ~/.bash_profile` into command line, enter, and copy/paste the above lines in and click control c to exit.
 
 check https://alpaca.markets/docs/api-documentation/api-v2/ for alpaca documentation
- 
+
+# Dependencies
+- alpaca_trade_api
+- bs4
+- TA-lib 
