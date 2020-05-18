@@ -41,7 +41,6 @@ class SMAStrategy(Strategy):
                 closeList.append(bar.c)
                 volumeList.append(bar.v)
             
-            print(timeList, len(timeList))
             # Processes all data into numpy arrays for use by talib
             timeList = np.array(timeList)
             openList = np.array(openList,dtype=np.float64)
@@ -50,6 +49,8 @@ class SMAStrategy(Strategy):
             closeList = np.array(closeList,dtype=np.float64)
             volumeList = np.array(volumeList,dtype=np.float64)
 
+
+            print(closeList)
             # Calculated trading indicators
             SMA20 = talib.SMA(closeList,20)[-1]
             SMA50 = talib.SMA(closeList,50)[-1]

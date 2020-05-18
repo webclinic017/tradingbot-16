@@ -79,19 +79,19 @@ class Backtrader(Trader):
         n = 0
         if barTimeframe == "5Min":
             n = 5
-        
-        for i in range(n):
-            df_row = df[i:i+1]
 
+        for i in range(n):
             bar = Object()
-            bar.t = df_row['Date']
-            bar.o = df_row['Open']
-            bar.h = df_row['High']
-            bar.l = df_row['Low']
-            bar.c = df_row['Close']
-            bar.v = df_row['Volume']
+            bar.t = df.iloc[i]['Date']
+            bar.o = df.iloc[i]['Open']
+            bar.h = df.iloc[i]['High']
+            bar.l = df.iloc[i]['Low']
+            bar.c = df.iloc[i]['Close']
+            bar.v = df.iloc[i]['Volume']
 
             bars.append(bar)
+
+            
 
         # Increment time
         self.timestamp += self.increment

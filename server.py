@@ -27,6 +27,6 @@ for strat in strats:
 for i in range(0, 100000):
     for strat in strats:
         strat.update(None)
-    time.sleep(60)
+    time.sleep(1)
 
 
