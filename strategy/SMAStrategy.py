@@ -59,12 +59,12 @@ class SMAStrategy(Strategy):
                 try:
                     openPosition = self.trader.get_position(symbol)
                     cashBalance = self.trader.get_account().cash  
-                    returned = self.trader.submit_order(symbol,100,"buy","market","gtc") # Market order to open position
+                    returned = self.trader.submit_order(symbol,100,"buy","market","gtc", close_price=closeList[-1]) # Market order to open position
                     print("buying")
                 # Opens new position if one does not exist
                 except:
                     cashBalance = self.trader.get_account().cash  
-                    returned = self.trader.submit_order(symbol,100,"buy","market","gtc") # Market order to open position
+                    returned = self.trader.submit_order(symbol,100,"buy","market","gtc", close_price=closeList[-1]) # Market order to open position
                     print("buying")
                 
             else:
@@ -72,7 +72,7 @@ class SMAStrategy(Strategy):
                 #openPosition = api.get_position(symbol)
                 #returned = api.submit_order(symbol,10,"sell","market","gtc") 
                 try:
-                    returned = self.trader.submit_order(symbol,10,"sell","market","gtc") # Market order to fully close position
+                    returned = self.trader.submit_order(symbol,10,"sell","market","gtc", close_price=closeList[-1]) # Market order to fully close position
                     print("selling")
                 except:
                     print("error")
