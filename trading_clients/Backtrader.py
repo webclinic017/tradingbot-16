@@ -5,7 +5,7 @@ import yfinance as yf
 import pandas as pd
 from pathlib import Path
 import datetime as datetime
-
+import csv
 
 class Backtrader(Trader):
     yf.pdr_override()
@@ -35,11 +35,17 @@ class Backtrader(Trader):
     def submit_order(self, symbol, qty, side, type, time_in_force, 
         limit_price=None, stop_price=None, client_order_id=None, order_class=None, take_profit=None, stop_loss=None):
         #This function would normally return an Order object
-
+        print("order submitted")
         params = [symbol, qty, side, type, time_in_force, limit_price, stop_price, client_order_id, order_class, take_profit, stop_loss]
         orders_dict = dict.fromkeys(params, 1)
 
         self.log.append(orders_dict)
+
+        # append as row to csv
+        with open("output.csv", "a") as fp:
+            print("writing order to file")
+            wr = csv.writer(fp, dialect='excel')
+            wr.writerow(params)
         
         return True
 
@@ -82,8 +88,9 @@ class Backtrader(Trader):
         df = pd.read_csv('./data/'+dataname+'.csv')
 
         # Add bars to list based on barTimeframe
+        rows = df.shape[0]
 
-        for i in range(self.timestamp, self.timestamp + limit):
+        for i in range(self.timestamp, min(self.timestamp + limit, rows)):
             bar = Object()
             bar.t = df.iloc[i]['Date']
             bar.o = df.iloc[i]['Open']
@@ -100,4 +107,5 @@ class Backtrader(Trader):
         self.timestamp += self.increment
 
         barset[symbol] = bars
+
         return barset
