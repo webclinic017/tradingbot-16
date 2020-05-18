@@ -9,12 +9,15 @@ To-do:
 - Add a universal logging object
 """
 import trading_clients.AlpacaTrader as at
+import trading_clients.Backtrader as bt
 import strategy.SMAStrategy as smas
 import alpaca_trade_api as tradeapi 
 import time
 
 
-trader = at.AlpacaTrader(tradeapi.REST())
+#trader = at.AlpacaTrader(tradeapi.REST())
+
+trader = bt.Backtrader(None)
 
 strats = [smas.SMAStrategy(None, trader)]
 

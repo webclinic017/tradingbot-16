@@ -41,6 +41,7 @@ class SMAStrategy(Strategy):
                 closeList.append(bar.c)
                 volumeList.append(bar.v)
             
+            print(timeList, len(timeList))
             # Processes all data into numpy arrays for use by talib
             timeList = np.array(timeList)
             openList = np.array(openList,dtype=np.float64)
