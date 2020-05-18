@@ -2,16 +2,14 @@
 
 `python server.py`
 
-for setting up alpaca environment variables on your local environment:
-add 
-`export APCA_API_BASE_URL="https://paper-api.alpaca.markets"
-export APCA_API_KEY_ID="PKKCZWUTJYNM5NEZSJOO"
-export APCA_API_SECRET_KEY="R30t8uWklbVBc1i8PM4rASnnBwVqsmqnxAG7mYDS"` to  ~/.bash_profile 
-or just type in `cat >> ~/.bash_profile` into command line, enter, and copy/paste the above lines in and click control c to exit.
+Development branch for working on the custom backtrader client.
 
-check https://alpaca.markets/docs/api-documentation/api-v2/ for alpaca documentation
 
-## Dependencies
-- alpaca_trade_api
-- bs4
-- TA-lib 
+Idea:
+
+- Each point in time is a tick
+- Tick has data associated with it - market price, open, high, low, close, volume, etc.
+- Backtrader.get_barset returns bars with each tick's data
+- The bars are created from a data file (probably a CSV from an API like Yahoo Finance)
+- Methods like submit_order are logged internally
+- Every call to Strategy.update should ideally be requesting a new bar set. We can simulate time passing by incrementing the Backtrader's internal clock. We can pass in a parameter to specify this increment.
