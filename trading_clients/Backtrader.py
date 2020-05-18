@@ -16,7 +16,7 @@ class Backtrader(Trader):
     files = []
 
     # add more member variables to keep track of more things
-    timestamp = 0
+    timestamp = 100
     increment = 1
 
     def get_account(self):
@@ -33,10 +33,10 @@ class Backtrader(Trader):
         return None
     
     def submit_order(self, symbol, qty, side, type, time_in_force, 
-        limit_price=None, stop_price=None, client_order_id=None, order_class=None, take_profit=None, stop_loss=None):
+        limit_price=None, stop_price=None, client_order_id=None, order_class=None, take_profit=None, stop_loss=None, close_price=None):
         #This function would normally return an Order object
         print("order submitted")
-        params = [symbol, qty, side, type, time_in_force, limit_price, stop_price, client_order_id, order_class, take_profit, stop_loss]
+        params = [symbol, qty, side, type, time_in_force, limit_price, stop_price, client_order_id, order_class, take_profit, stop_loss, close_price]
         orders_dict = dict.fromkeys(params, 1)
 
         self.log.append(orders_dict)
@@ -90,7 +90,7 @@ class Backtrader(Trader):
         # Add bars to list based on barTimeframe
         rows = df.shape[0]
 
-        for i in range(self.timestamp, min(self.timestamp + limit, rows)):
+        for i in range(self.timestamp-limit, min(self.timestamp, rows)):
             bar = Object()
             bar.t = df.iloc[i]['Date']
             bar.o = df.iloc[i]['Open']
