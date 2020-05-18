@@ -7,7 +7,7 @@ import scraper
 class SMAStrategy(Strategy):
     def run(self):
         assetsToTrade = scraper.get_top_gainers()[0:5]
-        self.barTimeFrame = "5Min"
+        self.barTimeFrame = "1D"
         assetListLen = len(assetsToTrade)
 
         self.data = {
@@ -50,7 +50,6 @@ class SMAStrategy(Strategy):
             volumeList = np.array(volumeList,dtype=np.float64)
 
 
-            print(closeList)
             # Calculated trading indicators
             SMA20 = talib.SMA(closeList,20)[-1]
             SMA50 = talib.SMA(closeList,50)[-1]

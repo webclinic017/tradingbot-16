@@ -3,6 +3,8 @@ from pandas_datareader import data as pdr
 from datetime import date
 import yfinance as yf
 import pandas as pd
+from pathlib import Path
+import datetime as datetime
 
 
 class Backtrader(Trader):
@@ -65,22 +67,23 @@ class Backtrader(Trader):
     def get_barset(self, symbol, barTimeframe,limit=100):
         class Object(object):
             pass
-        
+        today = date.today()
+        dataname = symbol + "_" + str(today)
         barset = {}
         bars = []
 
-        # Fill bars
-        datafile = self.get_data(symbol)
-        print(datafile, " created")
+        datafile = Path('./data/'+dataname+'.csv')
 
-        df = pd.read_csv('./data/'+datafile+'.csv')
+        if not datafile.exists():
+            datafile = self.get_data(symbol)
+            print(datafile, " created")
+
+        # Fill bars
+        df = pd.read_csv('./data/'+dataname+'.csv')
 
         # Add bars to list based on barTimeframe
-        n = 0
-        if barTimeframe == "5Min":
-            n = 5
 
-        for i in range(n):
+        for i in range(self.timestamp, self.timestamp + limit):
             bar = Object()
             bar.t = df.iloc[i]['Date']
             bar.o = df.iloc[i]['Open']
