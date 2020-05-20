@@ -49,7 +49,7 @@ class SMAStrategy(Strategy):
             closeList = np.array(closeList,dtype=np.float64)
             volumeList = np.array(volumeList,dtype=np.float64)
 
-
+            print(closeList)
             # Calculated trading indicators
             SMA20 = talib.SMA(closeList,20)[-1]
             SMA50 = talib.SMA(closeList,50)[-1]
@@ -60,12 +60,12 @@ class SMAStrategy(Strategy):
                     openPosition = self.trader.get_position(symbol)
                     cashBalance = self.trader.get_account().cash  
                     returned = self.trader.submit_order(symbol,100,"buy","market","gtc", close_price=closeList[-1]) # Market order to open position
-                    print("buying")
+                    print("buying ",symbol)
                 # Opens new position if one does not exist
                 except:
                     cashBalance = self.trader.get_account().cash  
                     returned = self.trader.submit_order(symbol,100,"buy","market","gtc", close_price=closeList[-1]) # Market order to open position
-                    print("buying")
+                    print("buying ",symbol)
                 
             else:
                 # Closes position if SMA20 is below SMA50
@@ -73,7 +73,7 @@ class SMAStrategy(Strategy):
                 #returned = api.submit_order(symbol,10,"sell","market","gtc") 
                 try:
                     returned = self.trader.submit_order(symbol,10,"sell","market","gtc", close_price=closeList[-1]) # Market order to fully close position
-                    print("selling")
+                    print("selling ",symbol)
                 except:
                     print("error")
             

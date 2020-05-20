@@ -71,6 +71,7 @@ class Backtrader(Trader):
     
     
     def get_barset(self, symbol, barTimeframe,limit=100):
+        print("getting barset for: ", symbol)
         class Object(object):
             pass
         today = date.today()
@@ -105,6 +106,8 @@ class Backtrader(Trader):
 
         # Increment time
         self.timestamp += self.increment
+
+        print("timestamp: ", self.timestamp)
 
         barset[symbol] = bars
 
