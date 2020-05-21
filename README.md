@@ -33,6 +33,8 @@ optional arguments:
 ```
 
 Backtester usage:
+Must supply at least the "cash" argument.
 ```
 python3 server.py -b 10000 100 2017-01-01 newfile.csv
+python3 server.py -b 10000
 ```
