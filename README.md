@@ -31,3 +31,8 @@ optional arguments:
                         keys to env.
 
 ```
+
+Backtester usage:
+```
+python3 server.py -b 10000 100 2017-01-01 newfile.csv
+```
