@@ -11,7 +11,8 @@ To-do:
 import argparse
 import time
 import dotenv
-
+import os
+import sys
 import threading
 
 import trading_clients.AlpacaTrader as at
@@ -68,7 +69,12 @@ def main():
         trader = bt.Backtrader(data)
 
     elif args.paper:
-        dotenv.load_dotenv()
+        if os.path.isfile(".env"):
+            dotenv.load_dotenv()
+        else:
+            print("Error: Create a .env file containing API keys")
+            sys.exit()
+
         trader = at.AlpacaTrader(tradeapi.REST())
 
     strats = [smas.SMAStrategy(None, trader)]
