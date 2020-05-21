@@ -16,16 +16,10 @@ class Backtrader(Trader):
     files = []
 
     # add more member variables to keep track of more things
-    timestamp = 100
     increment = 1
 
     def get_account(self):
-        class Object(object):
-            pass
-        act = Object()
-        act.cash = 10000
-
-        return act
+        return self.api
     
 
     def get_position(self, symbol):
@@ -42,7 +36,7 @@ class Backtrader(Trader):
         self.log.append(orders_dict)
 
         # append as row to csv
-        with open("output.csv", "a") as fp:
+        with open(self.api.output_file, "a") as fp:
             print("writing order to file")
             wr = csv.writer(fp, dialect='excel')
             wr.writerow(params)
@@ -56,7 +50,7 @@ class Backtrader(Trader):
 
     def get_data(self, ticker):
         today = date.today()
-        start_date = "2017-01-01"
+        start_date = self.api.start_date
         end_date = today
     
         data = pdr.get_data_yahoo(ticker, start=start_date, end=end_date)
@@ -91,7 +85,7 @@ class Backtrader(Trader):
         # Add bars to list based on barTimeframe
         rows = df.shape[0]
 
-        for i in range(self.timestamp-limit, min(self.timestamp, rows)):
+        for i in range(self.api.timestamp-limit, min(self.api.timestamp, rows)):
             bar = Object()
             bar.t = df.iloc[i]['Date']
             bar.o = df.iloc[i]['Open']
@@ -105,9 +99,9 @@ class Backtrader(Trader):
             
 
         # Increment time
-        self.timestamp += self.increment
+        self.api.timestamp += self.increment
 
-        print("timestamp: ", self.timestamp)
+        print("timestamp: ", self.api.timestamp)
 
         barset[symbol] = bars
 

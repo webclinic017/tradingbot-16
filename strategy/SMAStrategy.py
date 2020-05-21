@@ -49,7 +49,7 @@ class SMAStrategy(Strategy):
             closeList = np.array(closeList,dtype=np.float64)
             volumeList = np.array(volumeList,dtype=np.float64)
 
-            print(closeList)
+            #print(closeList)
             # Calculated trading indicators
             SMA20 = talib.SMA(closeList,20)[-1]
             SMA50 = talib.SMA(closeList,50)[-1]
