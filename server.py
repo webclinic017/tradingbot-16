@@ -32,7 +32,7 @@ def main():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        "-b", "--backtest", help="Provide cash, timestamp, start_date, output_file to backtest the assigned strategies. Uses default values if not assigned.", nargs="?", const=1)
+        "-b", "--backtest", help="Provide cash, timestamp, start_date, output_file to backtest the assigned strategies. Uses default values if not assigned.", nargs="+")
     parser.add_argument(
         "-p", "--paper", help="Run bot in paper trading mode. Make sure to add API keys to env.", action='store_true')
     parser.add_argument(
