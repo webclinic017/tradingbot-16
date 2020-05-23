@@ -1,13 +1,15 @@
 """ Overview:
-Server.py includes:
-- Config options
-- A Strategy object
-- Initialization steps
-- A loop
+server.py includes:
+- Command line options
+- A list of strategies to run on separate threads
+- A strategy execution function
 
 To-do:
-- Add a universal logging object
+- Add a thread pool/queue
+- Better logging
 """
+
+
 import argparse
 import time
 import dotenv
@@ -15,20 +17,30 @@ import os
 import sys
 import threading
 
+import alpaca_trade_api as tradeapi
+
 import trading_clients.AlpacaTrader as at
 import trading_clients.Backtrader as bt
 import strategy.SMAStrategy as smas
-import alpaca_trade_api as tradeapi
 
 
 def execute_strategy(strategy, data, timer):
+    """This function is the target for threading.Thread. It runs the given strategy and updates it in a loop for some long period of time.
+
+    Arguments:
+        strategy {Strategy} -- The Strategy object to be executed on this thread.
+        data {object} -- The data object that the Strategy can choose to be initialized with.
+        timer {int} -- The number of seconds of time.sleep between each iteration.
+    """
     strategy.run()
     for _ in range(0, 100000):
-        strategy.update(None)
+        strategy.update(data)
         time.sleep(timer)
 
 
 def main():
+    """Entry point for the program. It accepts command line arguments and creates the threads to run each strategy.
+    """
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
@@ -82,7 +94,7 @@ def main():
     for i, strat in enumerate(strats):
         try:
             t = threading.Thread(target=execute_strategy,
-                                 kwargs=dict(strategy=strat, data=i, timer=1))
+                                 kwargs=dict(strategy=strat, data=None, timer=1))
             t.start()
         except:
             print("Error: unable to start thread: ", i)
